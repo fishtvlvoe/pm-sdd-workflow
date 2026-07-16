@@ -10,13 +10,15 @@
 
 ## 怎麼使用
 
-依你的身份跟工具,有三種切入方式:
+依你的身份跟工具,有以下幾種切入方式:
 
 **人類讀者**:先讀 `docs/01-工作模式.md`,這是白話寫的 SOP,說明從客戶初談到驗收共 7 個階段(Phase 0 到 Phase 6)怎麼走,每個階段在做什麼、具體怎麼做、完成的判斷標準是什麼。不熟業界術語的話,對照 `docs/03-術語對照表.md` 查。開始一個新案子前,先過一次 `docs/04-團隊導入健檢清單.md`,確認這個案子跟這個工程師搭配適不適合走這套流程。
 
 **任何對話式 AI 的使用者**(ChatGPT、Claude、Gemini 等):直接用 `docs/02-AI協作提示詞-需求釐清四步驟.md` 裡的四段完整 Prompt,依序複製貼上執行。四段 Prompt 分別對應 SOP 的 Phase 1 到 Phase 4:場景引導、AI 落地可能性轉譯、雛形功能分析、需求規格書(FRD)產出。
 
 **Claude Code 使用者**:直接呼叫 `/需求轉譯` skill,把客戶會議逐字稿或筆記交給它,它會依照四步驟的節奏,每步驟停下來等你確認,最後產出一份 FRD(功能需求規格書)初稿。細節見 `.claude/skills/需求轉譯/SKILL.md`。
+
+**其他工具使用者**(Cursor、Gemini CLI、GitHub Copilot、opencode):同一個 `/需求轉譯` skill 也提供各工具的原生格式,分別放在 `.agent/`、`.cursor/`、`.gemini/`、`.github/`、`.opencode/` 資料夾底下,流程與輸出跟 Claude Code 版本一致。直接用自己慣用的工具呼叫即可,不用侷限在 Claude Code。
 
 ## 目錄結構
 
@@ -30,6 +32,10 @@ docs/
 .claude/skills/需求轉譯/
   SKILL.md                               Claude Code skill 定義,串起四步驟流程
   knowledge/輸入處理說明.md                Claude Code 環境的輸入判斷細節
+
+.agent/  .cursor/  .gemini/  .github/  .opencode/
+  skills/需求轉譯/SKILL.md(+knowledge/)   各工具原生 skill 格式,內容與 .claude 版本一致(僅拿掉 Claude 專屬語法)
+  commands/ 或 workflows/ 或 prompts/     各工具原生指令格式(.gemini 為 .toml),讓使用者不用手動貼提示詞就能呼叫
 ```
 
 ## 這套方法論的來源
